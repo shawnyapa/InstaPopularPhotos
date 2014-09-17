@@ -9,6 +9,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,11 +25,24 @@ public class InstaPhotosActivity extends Activity {
 	public static final String CLIENT_ID = "2c20e447eeed401ea9380d62d8f3b6cf";
 	private ArrayList<Photo> popularPhotos;
 	private PopularPhotosAdapter aPhotos;
+	private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insta_photos);
+    	swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+    	swipeContainer.setOnRefreshListener(new OnRefreshListener() {
+    		@Override
+    		public void onRefresh() {
+    			fetchInstagramPopularPhotos();
+    		}
+    	});   	
+    	swipeContainer.setColorSchemeColors(
+    			android.R.color.holo_blue_bright, 
+                android.R.color.holo_green_light, 
+                android.R.color.holo_orange_light, 
+                android.R.color.holo_red_light);		
         
         fetchInstagramPopularPhotos();
     }
@@ -36,6 +51,7 @@ public class InstaPhotosActivity extends Activity {
     private void fetchInstagramPopularPhotos() {
     	popularPhotos = new ArrayList<Photo>();
     	aPhotos = new PopularPhotosAdapter(this, popularPhotos);
+    	
     	ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
     	lvPhotos.setAdapter(aPhotos);
     	// Setup endpoint, Create Network Client, Send Network Request, Parse Response  	
@@ -96,7 +112,7 @@ public class InstaPhotosActivity extends Activity {
     		
     	});
     	
-		
+		swipeContainer.setRefreshing(false);
 	}
 
 
