@@ -62,7 +62,7 @@ public class InstaPhotosActivity extends Activity {
     					JSONObject photoJSON = photosJSON.getJSONObject(i);
     					Photo photo = new Photo();
     					if (photoJSON.optJSONObject("user") != null) {
-    						photo.username = photoJSON.getJSONObject("user").getString("username");
+    						photo.username = "    User: "+photoJSON.getJSONObject("user").getString("username");
     						photo.profileimage = photoJSON.getJSONObject("user").getString("profile_picture");
     					}
     					if (photoJSON.optJSONObject("images").getJSONObject("standard_resolution") != null) {
@@ -75,6 +75,7 @@ public class InstaPhotosActivity extends Activity {
     					if (photoJSON.optJSONObject("likes") != null) {
     						photo.likeCount = photoJSON.getJSONObject("likes").getInt("count");
     					}
+    					else {photo.likeCount = 0;}
     					popularPhotos.add(photo); 
     					//Log.i("DEBUG", photo.toString());
     				}
