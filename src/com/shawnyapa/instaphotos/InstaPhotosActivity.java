@@ -46,7 +46,7 @@ public class InstaPhotosActivity extends Activity {
     		@Override
     		public void onSuccess(int statusCode, Header[] headers,
     				JSONObject response) {
-    			super.onSuccess(statusCode, headers, response);
+    			// super.onSuccess(statusCode, headers, response);
     			// "data"->[x]->"user"->"username"
     			// "data"->[x]->"images"->"standard_resolution"->"url"
     			// "data"->[x]->"images"->"standard_resolution"->"height"
@@ -61,31 +61,30 @@ public class InstaPhotosActivity extends Activity {
     				for (int i=0; i < photosJSON.length(); i++) {
     					JSONObject photoJSON = photosJSON.getJSONObject(i);
     					Photo photo = new Photo();
-    					if (photoJSON.getJSONObject("user") != null) {
+    					if (photoJSON.optJSONObject("user") != null) {
     						photo.username = photoJSON.getJSONObject("user").getString("username");
     						photo.profileimage = photoJSON.getJSONObject("user").getString("profile_picture");
     					}
-    					if (photoJSON.getJSONObject("images").getJSONObject("standard_resolution") != null) {
+    					if (photoJSON.optJSONObject("images").getJSONObject("standard_resolution") != null) {
     						photo.photoimage = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
     						photo.photoheight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
     					}
-    					if (photoJSON.getJSONObject("caption") != null) {
+    					if (photoJSON.optJSONObject("caption") != null) {
     						photo.caption = photoJSON.getJSONObject("caption").getString("text");
     					}
-    					if (photoJSON.getJSONObject("likes") != null) {
+    					if (photoJSON.optJSONObject("likes") != null) {
     						photo.likeCount = photoJSON.getJSONObject("likes").getInt("count");
     					}
-    					popularPhotos.add(photo);
+    					popularPhotos.add(photo); 
     					//Log.i("DEBUG", photo.toString());
     				}
-    				aPhotos.notifyDataSetChanged();
-    				
-    				
+    			    	
     			} catch (JSONException e) {
     				e.printStackTrace();
     			}
     			
-    		
+    			aPhotos.notifyDataSetChanged();
+    			
     		}
     		
     		@Override

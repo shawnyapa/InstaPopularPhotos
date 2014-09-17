@@ -17,9 +17,9 @@ import android.widget.TextView;
 public class PopularPhotosAdapter extends ArrayAdapter<Photo> {
 
 	public PopularPhotosAdapter(Context context, ArrayList<Photo> photos) {
-		//super(context, 0, photos);
-		super(context, android.R.layout.simple_list_item_1, photos);
-		//super(context, R.layout.item_photo, photos);
+		//super(context, R.layout.activity_insta_photos, photos);
+		//super(context, android.R.layout.simple_list_item_1, photos);
+		super(context, R.layout.item_photo, photos);
 
 	}
 
@@ -27,7 +27,7 @@ public class PopularPhotosAdapter extends ArrayAdapter<Photo> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		//Get item at position, check if recycled, lookup subviews & populate, return view
 		Photo photo = getItem(position);
-		if (convertView == null) {
+		if (convertView == null) { 
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
 		}
 		TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
