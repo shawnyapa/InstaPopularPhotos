@@ -13,3 +13,5 @@ User Stories:
 I would like to complete the Pull to Refresh but haven't had time yet. Hopefully tomorrow.
 
 Screen Capture Included:
+
+<img src="http://i.imgur.com/LL4E6uF.gif" title="Hosted by imgur.com" />
